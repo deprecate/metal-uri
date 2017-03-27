@@ -48,8 +48,19 @@ describe('Uri', function() {
 		assert.strictEqual('', uri.getOrigin());
 	});
 
+	it('should set procotol http: on localhost uri', function() {
+		var uri = new Uri('localhost:8080');
+		assert.strictEqual('http:', uri.getProtocol());
+		assert.strictEqual('8080', uri.getPort());
+	});
+
+	it('should support all types of uri schemes', function() {
+		var uri = new Uri('test:hostname');
+		assert.strictEqual('test:', uri.getProtocol());
+	});
+
 	it('should support set port on uri', function() {
-		var uri = new Uri('hostname:8080');
+		var uri = new Uri('http://hostname:8080');
 		assert.strictEqual('8080', uri.getPort());
 		uri.setPort('81');
 		assert.strictEqual('81', uri.getPort());
