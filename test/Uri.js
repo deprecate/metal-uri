@@ -54,9 +54,24 @@ describe('Uri', function() {
 		assert.strictEqual('8080', uri.getPort());
 	});
 
-	it('should support all types of uri schemes', function() {
-		var uri = new Uri('test:hostname');
-		assert.strictEqual('test:', uri.getProtocol());
+	it('should support useful types of uri schemes like "tel"', function() {
+		var uri = new Uri('tel:hostname');
+		assert.strictEqual('tel:', uri.getProtocol());
+	});
+
+	it('should support uri schemes that uses hyphen', function() {
+		var uri = new Uri('ms-excel:hostname');
+		assert.strictEqual('ms-excel:', uri.getProtocol());
+	});
+
+	it('should support uri schemes that uses period', function() {
+		var uri = new Uri('iris.beep:hostname');
+		assert.strictEqual('iris.beep:', uri.getProtocol());
+	});
+
+	it('should support uri schemes that uses plus', function() {
+		var uri = new Uri('some+scheme:hostname');
+		assert.strictEqual('some+scheme:', uri.getProtocol());
 	});
 
 	it('should support set port on uri', function() {
