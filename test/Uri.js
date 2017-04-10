@@ -59,22 +59,22 @@ describe('Uri', function() {
 		assert.strictEqual('tel:', uri.getProtocol());
 	});
 
+	it('should support uri schemes that include hyphens', function() {
+		var uri = new Uri('ms-excel:hostname');
+		assert.strictEqual('ms-excel:', uri.getProtocol());
+	});
+
 	it('should support uri schemes that include numerical values', function() {
 		var uri = new Uri('pkcs11:hostname');
 		assert.strictEqual('pkcs11:', uri.getProtocol());
 	});
 
-	it('should support uri schemes that uses hyphen', function() {
-		var uri = new Uri('ms-excel:hostname');
-		assert.strictEqual('ms-excel:', uri.getProtocol());
-	});
-
-	it('should support uri schemes that uses period', function() {
+	it('should support uri schemes that include periods', function() {
 		var uri = new Uri('iris.beep:hostname');
 		assert.strictEqual('iris.beep:', uri.getProtocol());
 	});
 
-	it('should support uri schemes that uses plus', function() {
+	it('should support uri schemes that include pluses', function() {
 		var uri = new Uri('some+scheme:hostname');
 		assert.strictEqual('some+scheme:', uri.getProtocol());
 	});
