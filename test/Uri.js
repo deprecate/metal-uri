@@ -48,7 +48,7 @@ describe('Uri', function() {
 		assert.strictEqual('', uri.getOrigin());
 	});
 
-	it('should set procotol http: on localhost uri', function() {
+	it('should set protocol http: on localhost uri', function() {
 		var uri = new Uri('localhost:8080');
 		assert.strictEqual('http:', uri.getProtocol());
 		assert.strictEqual('8080', uri.getPort());
