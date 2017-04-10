@@ -59,6 +59,11 @@ describe('Uri', function() {
 		assert.strictEqual('tel:', uri.getProtocol());
 	});
 
+	it('should support uri schemes that include numerical values', function() {
+		var uri = new Uri('pkcs11:hostname');
+		assert.strictEqual('pkcs11:', uri.getProtocol());
+	});
+
 	it('should support uri schemes that uses hyphen', function() {
 		var uri = new Uri('ms-excel:hostname');
 		assert.strictEqual('ms-excel:', uri.getProtocol());
