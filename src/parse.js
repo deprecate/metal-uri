@@ -9,6 +9,7 @@ import parseFromAnchor from './parseFromAnchor';
  * @param {*=} opt_uri Optional string URI to parse
  */
 function parse(opt_uri) {
+	const URL = window.URL;
 	if (isFunction(URL) && URL.length) {
 		return new URL(opt_uri);
 	} else {
