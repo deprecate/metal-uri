@@ -1,6 +1,7 @@
 'use strict';
 
 import parseFromAnchor from '../src/parseFromAnchor';
+const URL = window.URL;
 
 if (typeof URL !== 'undefined') {
 	// Skips the tests for this file on node environment.

@@ -1,6 +1,7 @@
 'use strict';
 
 import parse from '../src/parse';
+const URL = window.URL;
 
 if (typeof URL !== 'undefined') {
 	// Skips the tests for this file on node environment.

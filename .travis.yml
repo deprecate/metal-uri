@@ -1,0 +1,13 @@
+language: java
+jdk:
+- oraclejdk8
+before_install:
+  - nvm install 5
+addons:
+  sauce_connect:
+    no_ssl_bump_domains: all
+  jwt:
+    secure: fScMtDRHXvJYEktJjIOkp7sBHKq+R5s3Ts8X2/8D7PcxC/WCHIlNxtCFo7VqYQNniNEOJlo0IjyFIzIavw1ChoMec2MQ/iIU18ck5w9DvUpkNcG9jZ2uKW6PGcQhlwtOkoQoAzKrcH5/NmvPKL5wg3/qs5Te7v7AKRW4YMpjEH/LFffW6tSUbeuZxXF4L492U7esY/H4bhQFrLBb8zKNPiA4zd0d2WR45ebQY+xeFGODTkEn8S/f3730LUGhesFgOV4sSzFQjJ1oY16taX6J8dgQ10SEtjwJjTAfEFJBT+jWkYsPU9KjWv1SK6bKZWia74tUBmi6KWO23OvARjv2jzEaV0RmB2pzViTCXhzbhy2uFF5sZa9Ka7nnIBYI31jQFoKML36oJGnR/Qx+WSJfENB2IxvZ+b5j4xI3kThE0j1vyntChV1KzZl7nMqXwMg8KKLon3fXUSrsXGN4m7bNbDFVStq4hCEhZFRer0mxus3Z6UxmayzkUyMKjZXwi2LQodgD9kxswwU9QsUTX+GKmXvT6sN41b9PI4QqdYQofWVm/wickjiarFZeKGcOg3mFU5Y7cjmUIy63IsIstPjXRrQaepQtuIEE+ZM5Cjwnz2dWJT/hgbaIW2IdU4TAlyXPCPUGCsrtIQvwyYkNP3sqkt3mmm2B1nkOxfMfCbIo2g8=
+install:
+- npm i
+script: travis_wait gulp test:saucelabs
