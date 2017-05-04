@@ -4,6 +4,14 @@ import Uri from '../src/Uri';
 import { MultiMap } from 'metal-structs';
 
 describe('Uri', function() {
+	it('should work', function() {
+		var url = "/group/guest/~/control_panel/manage?p_p_id=com_liferay_dynamic_data_lists_form_web_portlet_DDLFormAdminPortlet&p_p_lifecycle=0&p_p_state=maximized&p_p_mode=view&_com_liferay_dynamic_data_lists_form_web_portlet_DDLFormAdminPortlet_groupId=20229&_com_liferay_dynamic_data_lists_form_web_portlet_DDLFormAdminPortlet_redirect=http%3A%2F%2Flocalhost%3A8080%2Fgroup%2Fguest%2F%7E%2Fcontrol_panel%2Fmanage%3Fp_p_id%3Dcom_liferay_dynamic_data_lists_form_web_portlet_DDLFormAdminPortlet%26p_p_lifecycle%3D0%26p_p_state%3Dmaximized%26p_p_mode%3Dview&_com_liferay_dynamic_data_lists_form_web_portlet_DDLFormAdminPortlet_mvcPath=%2Fadmin%2Fedit_record_set.jsp";
+
+		var uri = new Uri(url);
+
+		assert.strictEqual(url, uri.toString());
+	});
+
 	it('should support empty uri', function() {
 		var uri = new Uri();
 		assert.strictEqual('/', uri.getPathname());
