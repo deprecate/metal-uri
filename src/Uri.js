@@ -240,12 +240,12 @@ class Uri {
 	}
 
 	/**
-	 * Returns true if a protocol (scheme) was added to the original Uri.
+	 * Returns true if the default protocol (scheme) was added to the original Uri.
 	 * @return {boolean} True if a protocol (scheme) was added to the Url, false
 	 *   otherwise
 	 */
-	hasAddedProtocol() {
-		return this.protocolAdded_;
+	isUsingDefaultProtocol() {
+		return this.usingDefaultProtocol_;
 	}
 
 	/**
@@ -269,7 +269,7 @@ class Uri {
 			opt_uri.indexOf('javascript:') !== 0) { // jshint ignore:line
 
 			url = Uri.DEFAULT_PROTOCOL;
-			this.protocolAdded_ = true;
+			this.usingDefaultProtocol_ = true;
 
 			if (opt_uri[0] !== '/' || opt_uri[1] !== '/') {
 				url += '//';
@@ -294,7 +294,7 @@ class Uri {
 					url += opt_uri;
 			}
 		} else {
-			this.protocolAdded_ = false;
+			this.usingDefaultProtocol_ = false;
 		}
 		return url;
 	}
