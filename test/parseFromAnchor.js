@@ -16,7 +16,7 @@ if (typeof URL !== 'undefined') {
 			assert.strictEqual('?a=1', uri.search);
 		});
 
-		it('should throw a TypeError exception on invalid URLs', function() {
+		it('should throw a TypeError exception if the port number exceeds 65535', function() {
 			assert.throws(function() {
 				parseFromAnchor('http://localhost:99999');
 			}, TypeError)
