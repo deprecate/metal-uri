@@ -22,7 +22,7 @@ function isAnchorInvalidatedByBrowser(a) {
 		if ('javascript:' === a.protocol) return false; // don't throw anything as URL doesn't do it either
 		if (':' === a.protocol) return true; 
 		if (!/:/.test(a.href)) return true;
-		if (isPortProvidedToAnchor(a) && '' === a.port) return true;
+		if (isPortProvidedToURL(a) && '' === a.port) return true;
 	} catch (e) {
 		// re-throw any sort of exception as a TypeError
 		throw new TypeError(e.message);
