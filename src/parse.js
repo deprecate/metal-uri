@@ -10,9 +10,9 @@ import parseFromAnchor from './parseFromAnchor';
  */
 function parse(opt_uri) {
 	if (isFunction(URL) && URL.length) {
-
+		let url;
 		try {
-			const url = new URL(opt_uri);
+			url = new URL(opt_uri);
 		} catch (e) {
 			throw new TypeError(`${opt_uri} is not a valid URL`);
 		}
