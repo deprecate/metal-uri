@@ -5,7 +5,7 @@
  * @param {string} uri String URI to check
  */
 function isPortProvidedToURL(uri) {
-	return /:[0-9]+/.test(uri);
+	return /:\d+(?!\@)/.test(uri);
 } 
 
 /** 
