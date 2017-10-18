@@ -1,8 +1,9 @@
 'use strict';
 
-import { isDef, string } from 'metal';
 import parse from './parse';
+import resolvePathname from 'resolve-pathname';
 import { MultiMap } from 'metal-structs';
+import { isDef, string } from 'metal';
 
 var parseFn_ = parse;
 
@@ -197,7 +198,13 @@ class Uri {
 	 * @return {string}
 	 */
 	getPathname() {
-		return this.url.pathname;
+		let { pathname } = this.url;
+
+		if (pathname && pathname.indexOf('.') > -1) {
+			pathname = resolvePathname(pathname);
+		}
+
+		return pathname;
 	}
 
 	/**
