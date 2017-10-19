@@ -1,8 +1,9 @@
 'use strict';
 
-import { isDef, string } from 'metal';
 import parse from './parse';
+import resolvePathname from 'resolve-pathname';
 import { MultiMap } from 'metal-structs';
+import { isDef, string } from 'metal';
 
 var parseFn_ = parse;
 
@@ -25,6 +26,7 @@ class Uri {
 	 */
 	constructor(opt_uri = '') {
 		this.url = Uri.parse(this.maybeAddProtocolAndHostname_(opt_uri));
+		this.ensurePathname_();
 	}
 
 	/**
@@ -70,6 +72,16 @@ class Uri {
 	}
 
 	/**
+	 * Sets default path name if pathname doesn't exist.
+	 * @protected
+	 */
+	ensurePathname_() {
+		if (!this.getPathname()) {
+			this.setPathname('/');
+		}
+	}
+
+	/**
 	 * Ensures query internal map is initialized and synced with initial value
 	 * extracted from URI search part.
 	 * @protected
@@ -79,7 +91,7 @@ class Uri {
 			return;
 		}
 		this.query = new MultiMap();
-		var search = this.url.search;
+		var search = this.url.query;
 		if (search) {
 			search.substring(1).split('&').forEach((param) => {
 				var [key, value] = param.split('=');
@@ -186,7 +198,13 @@ class Uri {
 	 * @return {string}
 	 */
 	getPathname() {
-		return this.url.pathname;
+		let { pathname } = this.url;
+
+		if (pathname && pathname.indexOf('.') > -1) {
+			pathname = resolvePathname(pathname);
+		}
+
+		return pathname;
 	}
 
 	/**
@@ -333,7 +351,7 @@ class Uri {
 	 * @chainable
 	 */
 	setHash(hash) {
-		this.url.hash = hash;
+		this.url.set('hash', hash);
 		return this;
 	}
 
@@ -343,7 +361,7 @@ class Uri {
 	 * @chainable
 	 */
 	setHostname(hostname) {
-		this.url.hostname = hostname;
+		this.url.set('hostname', hostname);
 		return this;
 	}
 
@@ -379,7 +397,7 @@ class Uri {
 	 * @chainable
 	 */
 	setPathname(pathname) {
-		this.url.pathname = pathname;
+		this.url.set('pathname', pathname);
 		return this;
 	}
 
@@ -389,7 +407,7 @@ class Uri {
 	 * @chainable
 	 */
 	setPort(port) {
-		this.url.port = port;
+		this.url.set('port', port);
 		return this;
 	}
 
@@ -408,10 +426,10 @@ class Uri {
 	 * @chainable
 	 */
 	setProtocol(protocol) {
-		this.url.protocol = protocol;
-		if (this.url.protocol[this.url.protocol.length - 1] !== ':') {
-			this.url.protocol += ':';
+		if (protocol[protocol.length - 1] !== ':') {
+			protocol += ':';
 		}
+		this.url.set('protocol', protocol);
 		return this;
 	}
 
