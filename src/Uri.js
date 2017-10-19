@@ -5,8 +5,6 @@ import resolvePathname from 'resolve-pathname';
 import { MultiMap } from 'metal-structs';
 import { isDef, string } from 'metal';
 
-var parseFn_ = parse;
-
 class Uri {
 
 	/**
@@ -25,7 +23,7 @@ class Uri {
 	 * @constructor
 	 */
 	constructor(opt_uri = '') {
-		this.url = Uri.parse(this.maybeAddProtocolAndHostname_(opt_uri));
+		this.url = parse(this.maybeAddProtocolAndHostname_(opt_uri));
 		this.ensurePathname_();
 	}
 
@@ -186,14 +184,6 @@ class Uri {
 	}
 
 	/**
-	 * Gets the function currently being used to parse URIs.
-	 * @return {!function()}
-	 */
-	static getParseFn() {
-		return parseFn_;
-	}
-
-	/**
 	 * Gets the pathname part of uri.
 	 * @return {string}
 	 */
@@ -318,14 +308,6 @@ class Uri {
 	}
 
 	/**
-	 * Parses the given uri string into an object.
-	 * @param {*=} opt_uri Optional string URI to parse
-	 */
-	static parse(opt_uri) {
-		return parseFn_(opt_uri);
-	}
-
-	/**
 	 * Removes the named query parameter.
 	 * @param {string} name The parameter to remove.
 	 * @chainable
@@ -409,15 +391,6 @@ class Uri {
 	setPort(port) {
 		this.url.set('port', port);
 		return this;
-	}
-
-	/**
-	 * Sets the function that will be used for parsing the original string uri
-	 * into an object.
-	 * @param {!function()} parseFn
-	 */
-	static setParseFn(parseFn) {
-		parseFn_ = parseFn;
 	}
 
 	/**
