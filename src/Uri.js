@@ -273,8 +273,7 @@ class Uri {
 	 */
 	maybeAddProtocolAndHostname_(opt_uri) {
 		var url = opt_uri;
-		if (opt_uri.indexOf('://') === -1 &&
-			opt_uri.indexOf('javascript:') !== 0) { // jshint ignore:line
+		if (opt_uri.indexOf('://') === -1) {
 
 			url = Uri.DEFAULT_PROTOCOL;
 			this.usingDefaultProtocol_ = true;
@@ -300,6 +299,11 @@ class Uri {
 					break;
 				default:
 					url += opt_uri;
+
+					var uriScheme = opt_uri.substr(0, opt_uri.indexOf(':'));
+					if (uriScheme && uriScheme.indexOf('localhost') === -1) {
+						url = opt_uri;
+					}
 			}
 		} else {
 			this.usingDefaultProtocol_ = false;

@@ -48,8 +48,39 @@ describe('Uri', function() {
 		assert.strictEqual('', uri.getOrigin());
 	});
 
+	it('should set protocol http: on localhost uri', function() {
+		var uri = new Uri('localhost:8080');
+		assert.strictEqual('http:', uri.getProtocol());
+		assert.strictEqual('8080', uri.getPort());
+	});
+
+	it('should support useful types of uri schemes like "tel"', function() {
+		var uri = new Uri('tel:hostname');
+		assert.strictEqual('tel:', uri.getProtocol());
+	});
+
+	it('should support uri schemes that include hyphens', function() {
+		var uri = new Uri('ms-excel:hostname');
+		assert.strictEqual('ms-excel:', uri.getProtocol());
+	});
+
+	it('should support uri schemes that include numerical values', function() {
+		var uri = new Uri('pkcs11:hostname');
+		assert.strictEqual('pkcs11:', uri.getProtocol());
+	});
+
+	it('should support uri schemes that include periods', function() {
+		var uri = new Uri('iris.beep:hostname');
+		assert.strictEqual('iris.beep:', uri.getProtocol());
+	});
+
+	it('should support uri schemes that include pluses', function() {
+		var uri = new Uri('some+scheme:hostname');
+		assert.strictEqual('some+scheme:', uri.getProtocol());
+	});
+
 	it('should support set port on uri', function() {
-		var uri = new Uri('hostname:8080');
+		var uri = new Uri('http://hostname:8080');
 		assert.strictEqual('8080', uri.getPort());
 		uri.setPort('81');
 		assert.strictEqual('81', uri.getPort());
