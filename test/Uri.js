@@ -284,4 +284,45 @@ describe('Uri', function() {
 		assert.strictEqual('https://hostname:8080/foo/', uri.toString());
 		assert.strictEqual(false, uri.isUsingDefaultProtocol());
 	});
+
+	it('should set protocol http: on localhost uri', function() {
+		var uri = new Uri('localhost:8080');
+		assert.strictEqual('http:', uri.getProtocol());
+		assert.strictEqual('8080', uri.getPort());
+	});
+
+	it('should support useful types of uri schemes like "tel"', function() {
+		var uri = new Uri('tel:pathname', false);
+		assert.strictEqual('tel:', uri.getProtocol());
+		assert.strictEqual('pathname', uri.getPathname());
+		assert.strictEqual('tel:pathname', uri.toString());
+	});
+
+	it('should support uri schemes that include hyphens', function() {
+		var uri = new Uri('ms-excel:pathname', false);
+		assert.strictEqual('ms-excel:', uri.getProtocol());
+		assert.strictEqual('pathname', uri.getPathname());
+		assert.strictEqual('ms-excel:pathname', uri.toString());
+	});
+
+	it('should support uri schemes that include numerical values', function() {
+		var uri = new Uri('pkcs11:pathname', false);
+		assert.strictEqual('pkcs11:', uri.getProtocol());
+		assert.strictEqual('pathname', uri.getPathname());
+		assert.strictEqual('pkcs11:pathname', uri.toString());
+	});
+
+	it('should support uri schemes that include periods', function() {
+		var uri = new Uri('iris.beep:pathname', false);
+		assert.strictEqual('iris.beep:', uri.getProtocol());
+		assert.strictEqual('pathname', uri.getPathname());
+		assert.strictEqual('iris.beep:pathname', uri.toString());
+	});
+
+	it('should support uri schemes that include pluses', function() {
+		var uri = new Uri('some+scheme:pathname', false);
+		assert.strictEqual('some+scheme:', uri.getProtocol());
+		assert.strictEqual('pathname', uri.getPathname());
+		assert.strictEqual('some+scheme:pathname', uri.toString());
+	});
 });

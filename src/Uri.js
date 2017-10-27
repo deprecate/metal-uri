@@ -22,8 +22,13 @@ class Uri {
 	 * @param {*=} opt_uri Optional string URI to parse
 	 * @constructor
 	 */
-	constructor(opt_uri = '') {
-		this.url = parse(this.maybeAddProtocolAndHostname_(opt_uri));
+	constructor(opt_uri = '', opt_addProtocol = true) {
+		this.addProtocol_ = opt_addProtocol;
+
+		opt_uri = opt_addProtocol ?
+			this.maybeAddProtocolAndHostname_(opt_uri) : opt_uri;
+
+		this.url = parse(opt_uri);
 		this.ensurePathname_();
 	}
 
@@ -411,6 +416,10 @@ class Uri {
 	 * @override
 	 */
 	toString() {
+		if (!this.addProtocol_) {
+			return this.url.toString();
+		}
+
 		var href = '';
 		var host = this.getHost();
 		if (host) {
