@@ -3,7 +3,7 @@
 import parse from './parse';
 import resolvePathname from 'resolve-pathname';
 import { MultiMap } from 'metal-structs';
-import { isDef, string } from 'metal';
+import { isDef, isNumber, string } from 'metal';
 
 class Uri {
 
@@ -427,10 +427,14 @@ class Uri {
 	 * @static
 	 */
 	static joinPaths(basePath, ...paths) {
+		basePath = isNumber(basePath) ? basePath.toString() : basePath;
 		if (basePath.charAt(basePath.length - 1) === '/') {
 			basePath = basePath.substring(0, basePath.length - 1);
 		}
-		paths = paths.map(path => path.charAt(0) === '/' ? path.substring(1) : path);
+		paths = paths.map(path => {
+			path = isNumber(path) ? path.toString() : path;
+			return path.charAt(0) === '/' ? path.substring(1) : path;
+		});
 		return [basePath].concat(paths).join('/').replace(/\/$/, '');
 	}
 

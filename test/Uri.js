@@ -246,6 +246,12 @@ describe('Uri', function() {
 		assert.strictEqual('http://localhost:123', Uri.joinPaths('http://localhost:123', ''));
 	});
 
+	it('should convert numbers to strings before joining paths', function() {
+		assert.strictEqual('foo/123', Uri.joinPaths('foo', 123));
+		assert.strictEqual('123/foo', Uri.joinPaths(123, 'foo'));
+		assert.strictEqual('1/2/3', Uri.joinPaths(1, 2, 3));
+	});
+
 	it('should make urls unique by adding a random param', function() {
 		var uri = new Uri('foo.bar/path');
 		var uri2 = new Uri('foo.bar/path');
