@@ -17,7 +17,11 @@
     "test"
   ],
   "scripts": {
+    "checkFormat": "npm run prettier -- --list-different",
     "compile": "babel --presets env -d lib/ src/",
+    "format": "npm run prettier -- --write",
+    "lint": "eslint '**/*.js'",
+    "prettier": "prettier-eslint '**/*.js'",
     "prepublish": "npm run compile",
     "test": "karma start",
     "test:saucelabs": "karma start karma-saucelabs.conf.js"
@@ -37,6 +41,8 @@
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-node-env-inline": "^0.2.0",
     "babel-preset-env": "^1.6.1",
+    "eslint": "^4.10.0",
+    "eslint-config-liferay": "^2.0.9",
     "chai": "^4.1.2",
     "gulp": "^3.8.11",
     "karma": "^1.1.0",
@@ -47,6 +53,7 @@
     "karma-sinon": "^1.0.5",
     "karma-webpack": "^2.0.5",
     "mocha": "^4.0.1",
+    "prettier-eslint-cli": "^4.4.0",
     "sinon": "^4.1.2",
     "webpack": "^3.5.5"
   },
