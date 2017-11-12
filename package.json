@@ -21,6 +21,7 @@
     "compile": "babel --presets env -d lib/ src/",
     "format": "npm run prettier -- --write",
     "lint": "eslint '**/*.js'",
+    "precommit": "lint-staged",
     "prettier": "prettier-eslint '**/*.js'",
     "prepublish": "npm run compile",
     "test": "karma start",
@@ -44,7 +45,7 @@
     "eslint": "^4.10.0",
     "eslint-config-liferay": "^2.0.9",
     "chai": "^4.1.2",
-    "gulp": "^3.8.11",
+    "husky": "^0.14.3",
     "karma": "^1.1.0",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^1.0.1",
@@ -52,10 +53,17 @@
     "karma-sauce-launcher": "~1.1.0",
     "karma-sinon": "^1.0.5",
     "karma-webpack": "^2.0.5",
+    "lint-staged": "^4.3.0",
     "mocha": "^4.0.1",
     "prettier-eslint-cli": "^4.4.0",
     "sinon": "^4.1.2",
     "webpack": "^3.5.5"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier-eslint --write",
+      "git add"
+    ]
   },
   "react-native": {
     "path": "path-browserify"
