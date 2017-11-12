@@ -2,11 +2,10 @@
 
 import parse from './parse';
 import resolvePathname from 'resolve-pathname';
-import { MultiMap } from 'metal-structs';
-import { isDef, isNumber, string } from 'metal';
+import {MultiMap} from 'metal-structs';
+import {isDef, isNumber, string} from 'metal';
 
 class Uri {
-
 	/**
 	 * This class contains setters and getters for the parts of the URI.
 	 * The following figure displays an example URIs and their component parts.
@@ -25,8 +24,9 @@ class Uri {
 	constructor(opt_uri = '', opt_addProtocol = true) {
 		this.addProtocol_ = opt_addProtocol;
 
-		opt_uri = opt_addProtocol ?
-			this.maybeAddProtocolAndHostname_(opt_uri) : opt_uri;
+		opt_uri = opt_addProtocol
+			? this.maybeAddProtocolAndHostname_(opt_uri)
+			: opt_uri;
 
 		this.url = parse(opt_uri);
 		this.ensurePathname_();
@@ -40,8 +40,8 @@ class Uri {
 	 * @chainable
 	 */
 	addParametersFromMultiMap(multimap) {
-		multimap.names().forEach((name) => {
-			multimap.getAll(name).forEach((value) => {
+		multimap.names().forEach(name => {
+			multimap.getAll(name).forEach(value => {
 				this.addParameterValue(name, value);
 			});
 		});
@@ -70,7 +70,7 @@ class Uri {
 	 * @chainable
 	 */
 	addParameterValues(name, values) {
-		values.forEach((value) => this.addParameterValue(name, value));
+		values.forEach(value => this.addParameterValue(name, value));
 		return this;
 	}
 
@@ -94,15 +94,18 @@ class Uri {
 			return;
 		}
 		this.query = new MultiMap();
-		var search = this.url.query;
+		let search = this.url.query;
 		if (search) {
-			search.substring(1).split('&').forEach((param) => {
-				var [key, value] = param.split('=');
-				if (isDef(value)) {
-					value = Uri.urlDecode(value);
-				}
-				this.addParameterValue(key, value);
-			});
+			search
+				.substring(1)
+				.split('&')
+				.forEach(param => {
+					let [key, value] = param.split('=');
+					if (isDef(value)) {
+						value = Uri.urlDecode(value);
+					}
+					this.addParameterValue(key, value);
+				});
 		}
 	}
 
@@ -119,9 +122,9 @@ class Uri {
 	 * @return {string}
 	 */
 	getHost() {
-		var host = this.getHostname();
+		let host = this.getHostname();
 		if (host) {
-			var port = this.getPort();
+			let port = this.getPort();
 			if (port && port !== '80') {
 				host += ':' + port;
 			}
@@ -134,7 +137,7 @@ class Uri {
 	 * @return {string}
 	 */
 	getHostname() {
-		var hostname = this.url.hostname;
+		let hostname = this.url.hostname;
 		if (hostname === Uri.HOSTNAME_PLACEHOLDER) {
 			return '';
 		}
@@ -146,7 +149,7 @@ class Uri {
 	 * @return {string}
 	 */
 	getOrigin() {
-		var host = this.getHost();
+		let host = this.getHost();
 		if (host) {
 			return this.getProtocol() + '//' + host;
 		}
@@ -193,7 +196,7 @@ class Uri {
 	 * @return {string}
 	 */
 	getPathname() {
-		let { pathname } = this.url;
+		let {pathname} = this.url;
 
 		if (pathname && pathname.indexOf('.') > -1) {
 			pathname = resolvePathname(pathname);
@@ -224,10 +227,10 @@ class Uri {
 	 * @return {string}
 	 */
 	getSearch() {
-		var search = '';
-		var querystring = '';
-		this.getParameterNames().forEach((name) => {
-			this.getParameterValues(name).forEach((value) => {
+		let search = '';
+		let querystring = '';
+		this.getParameterNames().forEach(name => {
+			this.getParameterValues(name).forEach(value => {
 				querystring += name;
 				if (isDef(value)) {
 					querystring += '=' + encodeURIComponent(value);
@@ -277,9 +280,9 @@ class Uri {
 	 * @return {string} URI with protocol and hostname placeholder.
 	 */
 	maybeAddProtocolAndHostname_(opt_uri) {
-		var url = opt_uri;
-		if (opt_uri.indexOf('://') === -1 &&
-			opt_uri.indexOf('javascript:') !== 0) { // jshint ignore:line
+		let url = opt_uri;
+		if (opt_uri.indexOf('://') === -1 && opt_uri.indexOf('javascript:') !== 0) {
+			// jshint ignore:line
 
 			url = Uri.DEFAULT_PROTOCOL;
 			this.usingDefaultProtocol_ = true;
@@ -289,22 +292,22 @@ class Uri {
 			}
 
 			switch (opt_uri.charAt(0)) {
-				case '.':
-				case '?':
-				case '#':
+			case '.':
+			case '?':
+			case '#':
+				url += Uri.HOSTNAME_PLACEHOLDER;
+				url += '/';
+				url += opt_uri;
+				break;
+			case '':
+			case '/':
+				if (opt_uri[1] !== '/') {
 					url += Uri.HOSTNAME_PLACEHOLDER;
-					url += '/';
-					url += opt_uri;
-					break;
-				case '':
-				case '/':
-					if (opt_uri[1] !== '/') {
-						url += Uri.HOSTNAME_PLACEHOLDER;
-					}
-					url += opt_uri;
-					break;
-				default:
-					url += opt_uri;
+				}
+				url += opt_uri;
+				break;
+			default:
+				url += opt_uri;
 			}
 		} else {
 			this.usingDefaultProtocol_ = false;
@@ -374,7 +377,7 @@ class Uri {
 	 */
 	setParameterValues(name, values) {
 		this.removeParameter(name);
-		values.forEach((value) => this.addParameterValue(name, value));
+		values.forEach(value => this.addParameterValue(name, value));
 		return this;
 	}
 
@@ -420,8 +423,8 @@ class Uri {
 			return this.url.toString();
 		}
 
-		var href = '';
-		var host = this.getHost();
+		let href = '';
+		let host = this.getHost();
 		if (host) {
 			href += this.getProtocol() + '//';
 		}
@@ -444,7 +447,10 @@ class Uri {
 			path = isNumber(path) ? path.toString() : path;
 			return path.charAt(0) === '/' ? path.substring(1) : path;
 		});
-		return [basePath].concat(paths).join('/').replace(/\/$/, '');
+		return [basePath]
+			.concat(paths)
+			.join('/')
+			.replace(/\/$/, '');
 	}
 
 	/**
@@ -456,7 +462,6 @@ class Uri {
 	static urlDecode(str) {
 		return decodeURIComponent(str.replace(/\+/g, ' '));
 	}
-
 }
 
 /**
@@ -466,10 +471,10 @@ class Uri {
  * @static
  */
 const isSecure = () =>
-	(typeof window !== 'undefined' &&
-		window.location &&
-		window.location.protocol &&
-		window.location.protocol.indexOf('https') === 0);
+	typeof window !== 'undefined' &&
+	window.location &&
+	window.location.protocol &&
+	window.location.protocol.indexOf('https') === 0;
 
 Uri.DEFAULT_PROTOCOL = isSecure() ? 'https:' : 'http:';
 

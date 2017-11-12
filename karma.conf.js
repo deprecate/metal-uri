@@ -11,8 +11,8 @@ module.exports = function(config) {
 				pattern: 'test/**/*.js',
 				watched: false,
 				included: true,
-				served: true
-			}
+				served: true,
+			},
 		],
 
 		plugins: [
@@ -20,30 +20,32 @@ module.exports = function(config) {
 			'karma-chrome-launcher',
 			'karma-mocha',
 			'karma-sinon',
-			'karma-webpack'
+			'karma-webpack',
 		],
 
 		preprocessors: {
-			'test/**/*.js': ['webpack']
+			'test/**/*.js': ['webpack'],
 		},
 
 		webpack: {
 			module: {
-				rules: [{
-					test: /\.js$/,
-					exclude: /(node_modules)/,
-					use: {
-						loader: 'babel-loader',
-						options: {
-							compact: false,
-							presets: ['env'],
-							plugins: ['babel-plugin-transform-node-env-inline']
-						}
-					}
-				}]
-			}
+				rules: [
+					{
+						test: /\.js$/,
+						exclude: /(node_modules)/,
+						use: {
+							loader: 'babel-loader',
+							options: {
+								compact: false,
+								presets: ['env'],
+								plugins: ['babel-plugin-transform-node-env-inline'],
+							},
+						},
+					},
+				],
+			},
 		},
 
-		singleRun: true
+		singleRun: true,
 	});
 };

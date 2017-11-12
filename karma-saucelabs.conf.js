@@ -10,68 +10,70 @@ module.exports = function(config) {
 	const launchers = {
 		sl_chrome: {
 			base: 'SauceLabs',
-			browserName: 'chrome'
+			browserName: 'chrome',
 		},
 		sl_chrome_57: {
 			base: 'SauceLabs',
 			browserName: 'chrome',
-			version: '57'
+			version: '57',
 		},
 		sl_safari_9: {
 			base: 'SauceLabs',
 			browserName: 'safari',
-			version: '9'
+			version: '9',
 		},
 		sl_safari_10: {
 			base: 'SauceLabs',
 			browserName: 'safari',
-			version: '10'
+			version: '10',
 		},
 		sl_safari_11: {
 			base: 'SauceLabs',
 			browserName: 'safari',
-			version: '11'
+			version: '11',
 		},
 		sl_firefox: {
 			base: 'SauceLabs',
-			browserName: 'firefox'
+			browserName: 'firefox',
 		},
 		sl_firefox_53: {
 			base: 'SauceLabs',
 			browserName: 'firefox',
-			version: '53'
+			version: '53',
 		},
 		sl_ie_10: {
 			base: 'SauceLabs',
 			browserName: 'internet explorer',
 			platform: 'Windows 7',
-			version: '10'
+			version: '10',
 		},
 		sl_ie_11: {
 			base: 'SauceLabs',
 			browserName: 'internet explorer',
 			platform: 'Windows 8.1',
-			version: '11'
+			version: '11',
 		},
 		sl_edge_20: {
 			base: 'SauceLabs',
 			browserName: 'microsoftedge',
 			platform: 'Windows 10',
-			version: '13'
+			version: '13',
 		},
 		sl_android_4: {
 			base: 'SauceLabs',
 			browserName: 'android',
 			platform: 'Linux',
-			version: '4.4'
-		}
+			version: '4.4',
+		},
 	};
 
 	let sauceLabsAccessKey = process.env.SAUCE_ACCESS_KEY;
 	if (!sauceLabsAccessKey) {
 		sauceLabsAccessKey = process.env.SAUCE_ACCESS_KEY_ENC;
 		if (sauceLabsAccessKey) {
-			sauceLabsAccessKey = new Buffer(sauceLabsAccessKey, 'base64').toString('binary');
+			sauceLabsAccessKey = new Buffer(sauceLabsAccessKey, 'base64').toString(
+				'binary'
+			);
 		}
 	}
 
@@ -92,7 +94,7 @@ module.exports = function(config) {
 			'karma-mocha',
 			'karma-sinon',
 			'karma-webpack',
-			karmaSauceLauncher
+			karmaSauceLauncher,
 		],
 
 		reporters: ['dots', 'saucelabs'],
@@ -101,14 +103,14 @@ module.exports = function(config) {
 			accessKey: sauceLabsAccessKey,
 			connectOptions: {
 				port: 4445,
-				logfile: 'sauce_connect.log'
+				logfile: 'sauce_connect.log',
 			},
 			recordScreenshots: false,
 			recordVideo: false,
 			startConnect: false,
 			testName: 'metal-uri tests',
 			tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER,
-			username: process.env.SAUCE_USERNAME
-		}
+			username: process.env.SAUCE_USERNAME,
+		},
 	});
 };
