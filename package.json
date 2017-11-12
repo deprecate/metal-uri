@@ -17,7 +17,7 @@
     "test"
   ],
   "scripts": {
-    "compile": "babel --presets metal -d lib/ src/",
+    "compile": "babel --presets env -d lib/ src/",
     "prepublish": "npm run compile",
     "test": "gulp test"
   },
@@ -35,7 +35,6 @@
     "babel-cli": "^6.4.5",
     "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.1",
-    "babel-preset-metal": "^4.0.0",
     "babelify": "^7.3.0",
     "browserify": "^14.4.0",
     "gulp": "^3.8.11",
