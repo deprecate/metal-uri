@@ -28,9 +28,7 @@ class Uri {
 	constructor(uri = '', addProtocol = true) {
 		this.addProtocol_ = addProtocol;
 
-		uri = addProtocol
-			? this.maybeAddProtocolAndHostname_(uri)
-			: uri;
+		uri = addProtocol ? this.maybeAddProtocolAndHostname_(uri) : uri;
 
 		this.url = parse(uri);
 		this.ensurePathname_();
