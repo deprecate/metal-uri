@@ -20,9 +20,9 @@
     "checkFormat": "npm run prettier -- --list-different",
     "compile": "babel --presets env -d lib/ src/",
     "format": "npm run prettier -- --write",
-    "lint": "eslint '**/*.js'",
+    "lint": "eslint '{src,test}/**/*.js'",
     "precommit": "lint-staged",
-    "prettier": "prettier-eslint '**/*.js'",
+    "prettier": "prettier-eslint '{src,test}/**/*.js'",
     "prepublish": "npm run compile",
     "test": "karma start",
     "test:saucelabs": "karma start karma-saucelabs.conf.js"
@@ -61,7 +61,7 @@
   },
   "lint-staged": {
     "*.js": [
-      "prettier-eslint --write",
+      "npm run format",
       "git add"
     ]
   },
