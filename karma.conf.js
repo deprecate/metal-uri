@@ -2,50 +2,50 @@
 
 module.exports = function(config) {
 	config.set({
-		frameworks: ['browserify', 'mocha', 'chai'],
+		browsers: ['Chrome'],
+
+		frameworks: ['mocha', 'chai', 'sinon'],
 
 		files: [
 			{
 				pattern: 'test/**/*.js',
 				watched: false,
 				included: true,
-				served: true
-			}
+				served: true,
+			},
 		],
 
 		plugins: [
-			'karma-browserify',
 			'karma-chai',
 			'karma-chrome-launcher',
-			'karma-mocha'
+			'karma-mocha',
+			'karma-sinon',
+			'karma-webpack',
 		],
 
 		preprocessors: {
-			'test/**/*.js': ['browserify']
+			'test/**/*.js': ['webpack'],
 		},
 
-		browsers: ['Chrome'],
-
-		browserify: {
-			debug: true,
-			transform: [
-				[
-					'babelify',
+		webpack: {
+			module: {
+				rules: [
 					{
-						presets: [
-							'env'
-						]
-					}
-				]
-			]
+						test: /\.js$/,
+						exclude: /(node_modules)/,
+						use: {
+							loader: 'babel-loader',
+							options: {
+								compact: false,
+								presets: ['env'],
+								plugins: ['babel-plugin-transform-node-env-inline'],
+							},
+						},
+					},
+				],
+			},
 		},
 
-		client: {
-			mocha: {
-				timeout: 4000
-			}
-		},
-
-		autoWatch: true
+		singleRun: true,
 	});
 };
