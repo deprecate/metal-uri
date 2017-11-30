@@ -8,24 +8,21 @@ Class for parsing and formatting URIs.
 
 ## Setup
 
-1. Install NodeJS >= [v0.12.0](http://nodejs.org/dist/v0.12.0/), if you don't have it yet.
+1. Install a recent release of [NodeJS](https://nodejs.org/en/download/) if you
+don't have it yet.
 
-2. Install global dependencies:
-
-  ```
-  [sudo] npm install -g gulp
-  ```
-
-3. Install local dependencies:
+2. Install local dependencies:
 
   ```
   npm install
   ```
 
-4. Build the code:
+3. Run the tests:
 
   ```
-  gulp build
+  npm test
   ```
 
+## Contributing
 
+Check out the [contributing guidelines](https://github.com/metal/metal-uri/blob/master/CONTRIBUTING.md) for more information.
